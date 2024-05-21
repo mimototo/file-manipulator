@@ -1,0 +1,37 @@
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func main() {
+	// コマンドラインの引数を取得
+	args := os.Args
+
+	// コマンドラインの引数の数をチェック
+	if len(args) < 4 {
+		fmt.Println("Useage: go run main.go reverse <InputFileName> <OutputFileName>")
+		fmt.Println(args)
+	}
+
+	// コマンドとファイル名を取得
+	command := args[1]
+	inputFileName := args[2]
+	// outputFileName := args[3]
+
+	// コマンドが"reverse"であることを確認
+	if command != "reverse" {
+		fmt.Println("Invalid command. Use 'revese' to reverse a input file contents.")
+		return
+	}
+
+	f, err := os.Read(inputFileName)
+	if err != nil {
+		fmt.Println("Can't open this file, sorry")
+		return
+	}
+
+	data := make([]byte, 1024)
+	fmt.Print(f.Read(data))
+}
